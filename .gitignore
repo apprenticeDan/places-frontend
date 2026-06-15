@@ -203,3 +203,4 @@ macos/Flutter/ephemeral/
 
 # General Flutter ephemeral
 **/ephemeral/
+**.txt

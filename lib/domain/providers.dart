@@ -61,3 +61,38 @@ final reviewsProvider =
     FutureProvider.family<List<ReviewModel>, int>((ref, placeId) async {
   return await ApiService.getReviews(placeId);
 });
+
+// ─── Favorites Provider ──────────────────────────────────────────────────────
+// Mantiene en memoria los IDs de lugares favoritos del usuario actual.
+
+class FavoritesNotifier extends StateNotifier<Set<int>> {
+  final String? token;
+
+  FavoritesNotifier(this.token) : super({});
+
+  Future<void> load() async {
+    if (token == null) return;
+    final favs = await ApiService.getFavorites(token!);
+    state = favs.toSet();
+  }
+
+  Future<void> toggle(int placeId) async {
+    if (token == null) return;
+    if (state.contains(placeId)) {
+      await ApiService.removeFavorite(placeId, token!);
+      state = {...state}..remove(placeId);
+    } else {
+      await ApiService.addFavorite(placeId, token!);
+      state = {...state, placeId};
+    }
+  }
+
+  bool isFavorite(int placeId) => state.contains(placeId);
+}
+
+final favoritesProvider = StateNotifierProvider<FavoritesNotifier, Set<int>>((ref) {
+  final auth = ref.watch(authProvider);
+  final notifier = FavoritesNotifier(auth.token);
+  notifier.load();
+  return notifier;
+});

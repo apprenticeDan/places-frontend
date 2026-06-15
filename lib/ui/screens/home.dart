@@ -4,9 +4,9 @@ import 'package:places/domain/providers.dart';
 import 'package:places/ui/widgets/home_app_bar.dart';
 import 'package:places/ui/widgets/review_list.dart';
 import 'package:places/ui/widgets/description_place.dart';
-import 'package:places/ui/widgets/card_image_list.dart';
+import 'package:places/ui/widgets/add_review_dialog.dart';
 
-class MyHome extends ConsumerWidget {  // ✅ ConsumerWidget
+class MyHome extends ConsumerWidget {
   const MyHome({super.key});
 
   @override
@@ -21,9 +21,19 @@ class MyHome extends ConsumerWidget {  // ✅ ConsumerWidget
           );
         }
 
-        final place = places.first;  // O usar parámetro de ID
+        final place = places.first;
 
         return Scaffold(
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: const Color(0xFF574ACF),
+            child: const Icon(Icons.rate_review, color: Colors.white),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (_) => AddReviewDialog(placeId: place.id),
+              );
+            },
+          ),
           body: Stack(
             children: [
               ListView(
@@ -42,7 +52,7 @@ class MyHome extends ConsumerWidget {  // ✅ ConsumerWidget
                   ),
                 ],
               ),
-              HomeAppBar(place.name),  // ✅ Nombre dinámico
+              HomeAppBar(place.name),
             ],
           ),
         );

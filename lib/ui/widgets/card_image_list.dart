@@ -17,7 +17,7 @@ class CardImageList extends ConsumerWidget {  // ✅ ConsumerWidget
         child: ListView(
           scrollDirection: Axis.horizontal,
           children: places
-              .map((place) => CardImage(place.images.medium))  // ✅ URLs dinámicas
+              .map((place) => CardImage(place.images.medium, placeId: place.id))
               .toList(),
         ),
       ),

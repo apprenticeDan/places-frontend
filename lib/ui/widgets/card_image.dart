@@ -3,8 +3,9 @@ import 'package:places/ui/widgets/fab_green.dart';
 
 class CardImage extends StatelessWidget {
   final String imageUrl;
+  final int placeId;
 
-  const CardImage(this.imageUrl, {super.key});
+  const CardImage(this.imageUrl, {required this.placeId, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class CardImage extends StatelessWidget {
 
     final cardImage = Stack(
       alignment: Alignment(0.7, 0.9),
-      children: <Widget>[card, FabGreen()],
+      children: <Widget>[card, FabGreen(placeId: placeId)],
     );
 
     return cardImage;

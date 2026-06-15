@@ -113,5 +113,52 @@ class ApiService {
       throw Exception('Error al cargar reseñas: ${response.statusCode}');
     }
   }
-}
 
+  // ─── Crear Reseña ──────────────────────────────────────────────────────────
+
+  static Future<bool> postReview(int placeId, String texto, int estrellas, String token) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/api/places/$placeId/reviews'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode({
+        'Texto': texto,
+        'Estrellas': estrellas,
+      }),
+    );
+    return response.statusCode == 201;
+  }
+
+  // ─── Favoritos ─────────────────────────────────────────────────────────────
+
+  static Future<bool> addFavorite(int placeId, String token) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/api/places/$placeId/favorite'),
+      headers: {'Authorization': 'Bearer $token'},
+    );
+    return response.statusCode == 200;
+  }
+
+  static Future<bool> removeFavorite(int placeId, String token) async {
+    final response = await http.delete(
+      Uri.parse('$baseUrl/api/places/$placeId/favorite'),
+      headers: {'Authorization': 'Bearer $token'},
+    );
+    return response.statusCode == 200;
+  }
+
+  static Future<List<int>> getFavorites(String token) async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/api/favorites'),
+      headers: {'Authorization': 'Bearer $token'},
+    );
+    if (response.statusCode == 200) {
+      final List<dynamic> data = jsonDecode(response.body);
+      return data.map((e) => e as int).toList();
+    } else {
+      return [];
+    }
+  }
+}
