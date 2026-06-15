@@ -19,7 +19,18 @@ class AuthResult {
 }
 
 class ApiService {
-  static const String baseUrl = 'http://localhost:8080';
+
+ static const String baseUrl = String.fromEnvironment(
+    'API_URL',
+    defaultValue: 'http://localhost:8080',  // fallback para desarrollo
+  );
+  /*
+  static const bool _produccion = false;  // true = AWS, false = local
+  static const String _devUrl  = 'http://localhost:8080';
+  static const String _prodUrl = 'https://places-back.midominio.com';
+  
+  static const String baseUrl = _produccion ? _prodUrl : _devUrl;
+*/
 
   // ─── Auth ──────────────────────────────────────────────────────────────────
 
