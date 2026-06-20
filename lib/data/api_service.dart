@@ -20,10 +20,11 @@ class AuthResult {
 
 class ApiService {
 
- static const String baseUrl = String.fromEnvironment(
+  static const String baseUrl = 'https://places-back.in4ind.fyi';
+ /*static const String baseUrl = String.fromEnvironment(
     'API_URL',
     defaultValue: 'http://localhost:8080',  // fallback para desarrollo
-  );
+  );*/
   /*
   static const bool _produccion = false;  // true = AWS, false = local
   static const String _devUrl  = 'http://localhost:8080';

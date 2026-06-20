@@ -181,10 +181,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ),
                       child: Form(
                         key: _formKey,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
+                        child: AutofillGroup(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
                             // Encabezado estilizado con logo / icono
                             Center(
                               child: Container(
@@ -269,6 +270,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             TextFormField(
                               controller: _emailController,
                               keyboardType: TextInputType.emailAddress,
+                              autofillHints: const [AutofillHints.email],
                               style: const TextStyle(color: Colors.white, fontFamily: 'Lato'),
                               decoration: InputDecoration(
                                 labelText: 'Correo Electrónico',
@@ -307,6 +309,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             TextFormField(
                               controller: _passwordController,
                               obscureText: _obscurePassword,
+                              autofillHints: const [AutofillHints.password],
                               style: const TextStyle(color: Colors.white, fontFamily: 'Lato'),
                               decoration: InputDecoration(
                                 labelText: 'Contraseña',
@@ -408,6 +411,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             ),
                           ],
                         ),
+                        ), // Cierre de AutofillGroup
                       ),
                     ),
                   ),
