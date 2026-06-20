@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:flutter/foundation.dart';
 import 'package:places/data/models/place_review_models.dart';
 
 class AuthResult {
@@ -20,18 +21,11 @@ class AuthResult {
 
 class ApiService {
 
-  static const String baseUrl = 'https://places-back.in4ind.fyi';
- /*static const String baseUrl = String.fromEnvironment(
-    'API_URL',
-    defaultValue: 'http://localhost:8080',  // fallback para desarrollo
-  );*/
-  /*
-  static const bool _produccion = false;  // true = AWS, false = local
-  static const String _devUrl  = 'http://localhost:8080';
-  static const String _prodUrl = 'https://places-back.midominio.com';
-  
-  static const String baseUrl = _produccion ? _prodUrl : _devUrl;
-*/
+  // Usa producción si el app está compilada (release), 
+  // o localhost si se corre localmente (debug).
+  static const String baseUrl = kReleaseMode 
+      ? 'https://places-back.in4ind.fyi' 
+      : 'http://localhost:8080';
 
   // ─── Auth ──────────────────────────────────────────────────────────────────
 
